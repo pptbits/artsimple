@@ -5,7 +5,8 @@
 @endsection
 
 @section('mainbody')
-    @if (Auth::user()->type == 'Buyer')
+{{-- {{ dd(Auth::user()->detail_user->type)}} --}}
+    @if (Auth::user()->detail_user->type == "1")
         <div class="container">
             <div class="row" id="artworks">
                 <div class="col-12 col-sm-6 col-lg-6 col-xl-4">
@@ -102,7 +103,7 @@
                 </div>
             </div>
         </div>
-    @elseif(Auth::user()->type == 'Seller')
+    @elseif(Auth::user()->detail_user->type == "2" || Auth::user()->detail_user->type == "3")
         @if (isset($up_art))
             <div class="container">
                 <div class="row" id="artworks">

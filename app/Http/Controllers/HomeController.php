@@ -7,6 +7,7 @@ use DB;
 use Auth;
 use App\Models\art_form;
 use App\Models\Upload_Artworks;
+use App\Models\User;
 
 class HomeController extends Controller
 {
@@ -27,7 +28,7 @@ class HomeController extends Controller
      */
     public function index(Request $reqeust)
     {
-        $user = DB::table('users')->select('users.*', 'detail_user.type')->join('detail_user', 'users.id', 'detail_user.id_user')->where('users.id', Auth::user()->id)->first();
+        $user = User::select('users.*', 'detail_user.type')->join('detail_user', 'users.id', 'detail_user.id_user')->where('users.id', Auth::user()->id)->first();
         if($user->type == '1'){
             $user->assignRole('Buyer');
             return view('backend.gallery');

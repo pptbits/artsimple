@@ -205,7 +205,7 @@
             </div>
 
             <div class="list-group list-group-flush">
-                @if (Auth::user()->type == 'Buyer')
+                @if (Auth::user()->detail_user->type == 1)
                     <a class="list-group-item list-group-item-action p-3" href="{{ url('home') }}"><img
                             src="images/icons8-apps-48.png" class="icon-sidebar">Gallery</a>
                     {{-- <a class="list-group-item list-group-item-black p-3" href="#!"><img src="{{ asset('images/logout.png') }}"
@@ -218,7 +218,7 @@
                     <form id="logout-form" action="{{ route('logout.perform') }}" method="POST" class="d-none">
                         @csrf
                     </form>
-                @elseif(Auth::user()->type == 'Seller')
+                @elseif(Auth::user()->detail_user->type == 2 || Auth::user()->detail_user->type == 3)
                     @if (request()->route()->uri == 'home')
                         <a class="list-group-item list-group-item-action p-3" href="{{ url('home') }}"><img
                                 src="{{ asset('images/icons8-apps-48.png') }}" class="icon-sidebar">My Gallery</a>
