@@ -22,7 +22,7 @@ class LoginController extends Controller
             return response()->json(['error' => 'Unauthorized'], 401);
         }
 
-        $user = User::where('email', $request->email)->first();
+        $user = User::where('email', $request->email)->with('detail_user')->first();
 
         // $token = $user->createToken('Access Token')->accessToken;
 
