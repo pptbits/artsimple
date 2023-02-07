@@ -17,7 +17,7 @@
                     <input type='file' name="image" class="form-control mt-3" onchange="readURL(this);" />
                 </div>
                 <div class="col-12 col-md-12 col-lg-9">
-                    <div class="row">
+                    <div class="row align-items-end">
                         <div class="col-12 my-3">
                             <label for="email" class="form-label">Description :</label>
                             <textarea rows="4" class="form-control" name="discript" placeholder="description"></textarea>

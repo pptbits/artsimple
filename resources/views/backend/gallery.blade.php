@@ -5,8 +5,8 @@
 @endsection
 
 @section('mainbody')
-{{-- {{ dd(Auth::user()->detail_user->type)}} --}}
-    @if (Auth::user()->detail_user->type == "1")
+    {{-- {{ dd(Auth::user()->detail_user->type)}} --}}
+    @if (Auth::user()->detail_user->type == '1')
         <div class="container">
             <div class="row" id="artworks">
                 <div class="col-12 col-sm-6 col-lg-6 col-xl-4">
@@ -103,7 +103,7 @@
                 </div>
             </div>
         </div>
-    @elseif(Auth::user()->detail_user->type == "2" || Auth::user()->detail_user->type == "3")
+    @elseif(Auth::user()->detail_user->type == '2' || Auth::user()->detail_user->type == '3')
         @if (isset($up_art))
             <div class="container">
                 <div class="row" id="artworks">
@@ -114,7 +114,8 @@
                                     <span class="tag-view"><img src="images/icons8-eyes-32.png" class="icon-like">0
                                         views</span>
                                     <div class="son-3"
-                                        style="background-image: url({{ asset('storage/images/' . $ua->image) }});"
+                                        style="background-image:linear-gradient(0deg, rgba(0, 0, 0, 0.67) 0%, rgba(0, 0, 0, 0.21) 16.15%,
+                                         rgba(0, 0, 0, 0) 36.98%), url({{ asset('storage/images/' . $ua->image) }});"
                                         width="3840" height="2160">
                                         <div class="son-text3">
                                             <div class="d-flex justify-content-between align-items-end">
