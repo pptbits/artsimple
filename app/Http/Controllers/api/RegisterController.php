@@ -24,8 +24,8 @@ class RegisterController extends Controller
             'tel' => 'required|string|max:20',
             'birth' => 'required|date',
             'idcard' => 'required|string|max:13',
-            'front_idcard' => 'required|image|mimes:jpeg,png,jpg|max:4096',
-            'selfie_idcard' => 'required|image|mimes:jpeg,png,jpg|max:4096',
+            'front_idcard' => 'required|image|mimes:jpeg,png,jpg|max:10240',
+            'selfie_idcard' => 'required|image|mimes:jpeg,png,jpg|max:10240',
         ]);
 
         if ($validator->fails()) {

@@ -28,9 +28,10 @@ Route::group(['middleware' => ['auth.web']], function () {
     /**
      * Logout Route
      */
-    // Route::group(['middleware' => ['role:Buyer']], function () {
-    // }
-    // );
+    Route::group(['middleware' => ['role:Buyer']], function () {
+        Route::get('/uploadArtworkBuy/detail/{id}', [Upload_ArtworkController::class, 'detail'])->name('uploadArtwork.detail');
+    }
+    );
     Route::group(['middleware' => ['role:Seller']], function () {
         Route::get('/uploadArtwork', [Upload_ArtworkController::class, 'index'])->name('uploadArtwork');
         Route::post('/uploadArtwork/store', [Upload_ArtworkController::class, 'store'])->name('uploadArtwork.store');

@@ -28,14 +28,18 @@ class HomeController extends Controller
      */
     public function index(Request $reqeust)
     {
-        $user = User::select('users.*', 'detail_user.type')->join('detail_user', 'users.id', 'detail_user.id_user')->where('users.id', Auth::user()->id)->first();
+        $user = User::select('users.*', 'detail_user.type')->join('detail_user', 'users.id', 'detail_user.id_user')
+        ->where('users.id', Auth::user()->id)->first();
         if($user->type == '1'){
             $user->assignRole('Buyer');
-            return view('backend.gallery');
+            $up_art = Upload_Artworks::all();
+            $data = array('up_art' => $up_art);
+            return view('backend.gallery', $data);
         }elseif($user->type == '2' || $user->type == '3'){
             $user->assignRole('Seller');
-            $up_art_j = Upload_Artworks::join('users', 'upload_artwork.user_id', 'users.id')->get()->toArray();
-            $up_art = Upload_Artworks::where('user_id', $up_art_j)->get();
+            $up_art = Upload_Artworks::join('users', 'upload_artwork.user_id', 'users.id')
+            ->select('upload_artwork.*', 'users.name as user_name')
+            ->where('upload_artwork.user_id', Auth::user()->id)->get();
             // dd($up_art);
             $data = array('up_art' => $up_art);
             return view('backend.gallery', $data);

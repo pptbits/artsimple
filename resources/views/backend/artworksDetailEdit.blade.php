@@ -4,6 +4,13 @@
     ArtSimple
 @endsection
 
+<style>
+    #modal-c {
+        width: 100%;
+        height: auto;
+    }
+</style>
+
 @section('mainbody')
     @if (Auth::user()->detail_user->type == "1")
     @elseif(Auth::user()->detail_user->type == "2" || Auth::user()->detail_user->type == "3")
@@ -147,7 +154,7 @@
                                 </button>
                                 {{-- <a href="#" class="btn btn-black2 ms-3">Save</a> --}}
                             </div>
-                            <input type="hidden" name="id" value="{{ $up_art->id }}">
+                            <input type="hidden" name="id" value="{{ $up_art->user_id }}">
                         </div>
                     </div>
                 </div>
@@ -156,8 +163,8 @@
         <!-- The Modal -->
         <div class="modal fade" id="myModal">
             <div class="modal-dialog modal-dialog-centered">
-                <div class="modal-content">
-                    <img src="{{ url(asset('storage/images/' . $up_art->image)) }}" class="w-100">
+                <div class="modal-content" id="modal-c">
+                    <img src="{{ url(asset('storage/images/' . $up_art->image)) }}">
 
                 </div>
             </div>
@@ -219,6 +226,66 @@
 
                 reader.readAsDataURL(input.files[0]);
             }
+        }
+    </script>
+
+    {{-- zoom in/out --}}
+    <script>
+        const zoomableImage = document.getElementById("modal-c");
+        console.log(zoomableImage);
+        let zoom = 100;
+        let currentX;
+        let xOffset = 0;
+        const MIN_ZOOM = 50;
+        const MAX_ZOOM = 370;
+        const MIN_X_OFFSET = -670;
+        const MAX_X_OFFSET = 10;
+
+        zoomableImage.addEventListener("mousedown", function(event) {
+            if (event.which === 1) {
+                zoom += 10;
+            } else if (event.which === 3) {
+                zoom -= 10;
+            }
+            zoom = Math.max(MIN_ZOOM, Math.min(zoom, MAX_ZOOM));
+            zoomableImage.style.width = zoom + "%";
+            zoomableImage.style.transformOrigin = "center";
+        });
+
+        document.addEventListener("mousewheel", function(event) {
+            event.preventDefault();
+            if (event.deltaY < 0) {
+                zoom += 10;
+            } else {
+                zoom -= 10;
+            }
+            zoom = Math.max(MIN_ZOOM, Math.min(zoom, MAX_ZOOM));
+            zoomableImage.style.width = zoom + "%";
+            zoomableImage.style.transformOrigin = "center";
+        }, {
+            passive: false
+        });
+
+        // document.addEventListener("keydown", function(event) {
+        //     switch (event.keyCode) {
+        //         case 37: // left arrow
+        //             xOffset -= 10;
+        //             xOffset = Math.max(MIN_X_OFFSET, Math.min(xOffset, MAX_X_OFFSET));
+        //             break;
+        //         case 39: // right arrow
+        //             xOffset += 10;
+        //             xOffset = Math.max(MIN_X_OFFSET, Math.min(xOffset, MAX_X_OFFSET));
+        //             break;
+        //     }
+        //     setTranslate(xOffset, zoomableImage);
+        // }, {
+        //     passive: false
+        // });
+
+        setTranslate(xOffset, zoomableImage);
+
+        function setTranslate(xPos, el) {
+            el.style.transform = "translateX(" + -670 + "px)";
         }
     </script>
 @endsection

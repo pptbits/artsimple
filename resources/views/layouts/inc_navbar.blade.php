@@ -207,7 +207,7 @@
             <div class="list-group list-group-flush">
                 @if (Auth::user()->detail_user->type == 1)
                     <a class="list-group-item list-group-item-action p-3" href="{{ url('home') }}"><img
-                            src="images/icons8-apps-48.png" class="icon-sidebar">Gallery</a>
+                            src="{{ asset('images/icons8-apps-48.png') }}" class="icon-sidebar">Gallery</a>
                     {{-- <a class="list-group-item list-group-item-black p-3" href="#!"><img src="{{ asset('images/logout.png') }}"
                             class="icon-sidebar">Log out</a> --}}
                     <a class="list-group-item list-group-item-black p-3" href="{{ route('logout.perform') }}"

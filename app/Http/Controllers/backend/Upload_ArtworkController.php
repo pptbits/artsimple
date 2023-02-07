@@ -8,6 +8,7 @@ use App\Models\Upload_Artworks;
 use Illuminate\Support\Facades\Storage;
 use Intervention\Image\Facades\Image;
 use App\Models\art_form;
+use App\Models\User;
 use DB;
 use Auth;
 
@@ -51,17 +52,14 @@ class Upload_ArtworkController extends Controller
     {
             // validate the image
         $request->validate([
-            'image' => 'required|image|mimes:jpeg,png,jpg|max:8192',
+            'image' => 'required|image|mimes:jpeg,png,jpg',
             'discript' => 'required|string',
             'name_art' => 'required|string:max:255',
             'type_art' => 'required|string',
             'select_art_form' => 'required|string',
             'art_tech' => 'required|string',
             'select_cer' => 'required|string',
-            'price' => 'required|numeric',
-            'select_frame' => 'required|string',
-            'select_ship' => 'required|string',
-            'hide_show' => 'required|string',
+            'price' => 'required',
         ]);
 
         $ua = new Upload_Artworks;
@@ -96,8 +94,24 @@ class Upload_ArtworkController extends Controller
 
     public function detail($id)
     {
-        $up_art = Upload_Artworks::find($id);
-        $data = array('up_art' => $up_art);
+        $user = User::select('users.*', 'detail_user.type')->join('detail_user', 'users.id', 'detail_user.id_user')
+        ->where('users.id', Auth::user()->id)->first();
+        if($user->type == '1'){
+            $up_art = Upload_Artworks::join('art_form', 'upload_artwork.art_form', 'art_form.id')
+            ->join('users', 'upload_artwork.user_id', 'users.id')
+            ->select('upload_artwork.*', 'art_form.art_name', 'users.name as user_name')
+            ->where('upload_artwork.id', $id)->first();
+            // dd($up_art);
+            $data = array('up_art' => $up_art);
+        } elseif ($user->type == '2' || $user->type == '3') {
+            $up_art = Upload_Artworks::join('art_form', 'upload_artwork.art_form', 'art_form.id')
+                ->join('users', 'upload_artwork.user_id', 'users.id')
+                ->select('upload_artwork.*', 'art_form.art_name', 'users.name as user_name')
+                ->where('upload_artwork.user_id', Auth::user()->id)
+                ->where('upload_artwork.id', $id)->first();
+            // dd($up_art);
+            $data = array('up_art' => $up_art);
+        }
         return view('backend.artworksDetail', $data);
     }
 
