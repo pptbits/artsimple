@@ -31,14 +31,14 @@ class HomeController extends Controller
         if($user->type == '1'){
             $user->assignRole('Buyer');
             return view('backend.gallery');
-        }elseif($user->type == '2'){
+        }elseif($user->type == '2' || $user->type == '3'){
             $user->assignRole('Seller');
             $up_art_j = Upload_Artworks::join('users', 'upload_artwork.user_id', 'users.id')->get()->toArray();
             $up_art = Upload_Artworks::where('user_id', $up_art_j)->get();
             // dd($up_art);
             $data = array('up_art' => $up_art);
             return view('backend.gallery', $data);
-        } elseif ($user->type == '2') {
+        } elseif ($user->type == '4') {
             $user->assignRole('Admin');
             $art_form = art_form::all();
             $data = array('art_form' => $art_form);
