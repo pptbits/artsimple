@@ -121,7 +121,7 @@
     <script>
         var myInput = new AutoNumeric('#myinput', {
             decimalPlaces: 2,
-            currencySymbol: '$',
+            currencySymbol: '฿',
             digitGroupSeparator: ','
         });
     </script>

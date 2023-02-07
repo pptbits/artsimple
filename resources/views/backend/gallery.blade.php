@@ -120,7 +120,7 @@
                                             <div class="d-flex justify-content-between align-items-end">
                                                 <div>
                                                     <p class="mb-0">{{ $ua->name }}</p>
-                                                    <span>฿{{ number_format($ua->price, 2) }}</span>
+                                                    <span>{{ $ua->price }}</span>
                                                 </div>
                                                 <div>
                                                     <span class="me-2"><img src="images/icons8-facebook-like-48wh.png"

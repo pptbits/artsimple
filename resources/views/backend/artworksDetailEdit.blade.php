@@ -5,8 +5,8 @@
 @endsection
 
 @section('mainbody')
-    @if (Auth::user()->type == 'Buyer')
-    @elseif(Auth::user()->type == 'Seller')
+    @if (Auth::user()->detail_user->type == "1")
+    @elseif(Auth::user()->detail_user->type == "2" || Auth::user()->detail_user->type == "3")
         @if (isset($up_art))
             <form action="{{ url('uploadArtwork/update') }}" method="POST" enctype="multipart/form-data" autocomplete="off">
                 @csrf
@@ -87,7 +87,7 @@
                                 <div class="col-12 col-sm-6 my-3">
                                     <label class="form-label">Price :</label>
                                     <input type="text" class="form-control"
-                                        value="{{ isset($up_art->price) ? number_format($up_art->price, 2) : '' }}"
+                                        value="{{ isset($up_art->price) ? $up_art->price : '' }}"
                                         name="price" id="myinput" placeholder="Price and currency">
                                 </div>
                                 <div class="col-12 col-sm-6 my-3">
@@ -171,7 +171,7 @@
     <script>
         var myInput = new AutoNumeric('#myinput', {
             decimalPlaces: 2,
-            currencySymbol: '$',
+            currencySymbol: '฿',
             digitGroupSeparator: ','
         });
     </script>

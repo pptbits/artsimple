@@ -5,8 +5,8 @@
 @endsection
 
 @section('mainbody')
-    @if (Auth::user()->type == 'Buyer')
-    @elseif(Auth::user()->type == 'Seller')
+    @if (Auth::user()->detail_user->type == "1")
+    @elseif(Auth::user()->detail_user->type == "2" || Auth::user()->detail_user->type == "3")
         @if (isset($up_art))
             <div class="container my-5">
                 <div class="artworkImageSet">
@@ -42,7 +42,7 @@
                         :<span>{{ isset($up_art->cer_auth) ? $up_art->cer_auth : '' }}</span></p>
                     <p class="list-detail">Artist :<span>{{ Auth::user()->name }}</span></p>
                     <p class="list-detail">Price
-                        :<span>฿{{ isset($up_art->price) ? number_format($up_art->price, 2) : '' }}</span></p>
+                        :<span>{{ isset($up_art->price) ? $up_art->price : '' }}</span></p>
                     <p class="list-detail">Frame Included
                         :<span>{{ isset($up_art->frame_incl) ? $up_art->frame_incl : '' }}</span></p>
                     <p class="list-detail">Shipment Availability:
