@@ -27,7 +27,7 @@ class HomeController extends Controller
      */
     public function index(Request $reqeust)
     {
-        $user = DB::tale('users')->select('users.*', 'details.type')->join('details', 'users.id', 'details.id_user')->where('users.id', Auth::user()->id)->first();
+        $user = DB::table('users')->select('users.*', 'details.type')->join('details', 'users.id', 'details.id_user')->where('users.id', Auth::user()->id)->first();
         if($user->type == '1'){
             $user->assignRole('Buyer');
             return view('backend.gallery');
