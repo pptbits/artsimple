@@ -11,6 +11,7 @@ use App\Models\art_form;
 use App\Models\User;
 use DB;
 use Auth;
+use Illuminate\Support\Facades\Log;
 
 class Upload_ArtworkController extends Controller
 {
@@ -50,46 +51,49 @@ class Upload_ArtworkController extends Controller
      */
     public function store(Request $request)
     {
-            // validate the image
-        $request->validate([
-            'image' => 'required|image|mimes:jpeg,png,jpg',
-            'discript' => 'required|string',
-            'name_art' => 'required|string:max:255',
-            'type_art' => 'required|string',
-            'select_art_form' => 'required|string',
-            'art_tech' => 'required|string',
-            'select_cer' => 'required|string',
-            'price' => 'required',
-        ]);
+        try {
+            $request->validate([
+                'image' => 'required|image|mimes:jpeg,png,jpg',
+                'discript' => 'required|string',
+                'name_art' => 'required|string:max:255',
+                'type_art' => 'required|string',
+                'select_art_form' => 'required|string',
+                'art_tech' => 'required|string',
+                'select_cer' => 'required|string',
+                'price' => 'required',
+            ]);
 
-        $ua = new Upload_Artworks;
+            $ua = new Upload_Artworks;
 
-        // get the image file
-        $image = $request->file('image');
-        // generate a unique name for the image
-        $name = uniqid() . '.' . $image->getClientOriginalExtension();
-        // resize the image
-        $img = Image::make($image)->resize(3840, 2160);
-        // save the image
-        Storage::put('public/images/' . $name, (string) $img->encode());
-        // return the view
+            // get the image file
+            $image = $request->file('image');
+            // generate a unique name for the image
+            $name = uniqid() . '.' . $image->getClientOriginalExtension();
+            // resize the image
+            $img = Image::make($image)->resize(3840, 2160);
+            // save the image
+            Storage::put('public/images/' . $name, (string) $img->encode());
+            // return the view
 
-        $ua->image = $name;
-        $ua->name = $request->input('name_art');
-        $ua->description = $request->input('discript');
-        $ua->type_art = $request->input('type_art');
-        $ua->art_form = $request->input('select_art_form');
-        $ua->art_tech = $request->input('art_tech');
-        $ua->cer_auth = $request->input('select_cer');
-        $ua->price = $request->input('price');
-        $ua->frame_incl = $request->input('select_frame');
-        $ua->shipment_avail = $request->input('select_ship');
-        $ua->art_dimen = $request->input('art_dimen');
-        $ua->show_hide = $request->input('hide_show');
-        $ua->user_id = Auth::user()->id;
-        $ua->save();
-        // dd($ua);
-        return redirect('home')->with('success', 'Artwork uploaded successfully.');
+            $ua->image = $name;
+            $ua->name = $request->input('name_art');
+            $ua->description = $request->input('discript');
+            $ua->type_art = $request->input('type_art');
+            $ua->art_form = $request->input('select_art_form');
+            $ua->art_tech = $request->input('art_tech');
+            $ua->cer_auth = $request->input('select_cer');
+            $ua->price = $request->input('price');
+            $ua->frame_incl = $request->input('select_frame');
+            $ua->shipment_avail = $request->input('select_ship');
+            $ua->art_dimen = $request->input('art_dimen');
+            $ua->show_hide = $request->input('hide_show');
+            $ua->user_id = Auth::user()->id;
+            $ua->save();
+            return redirect('home')->with('success', 'Artwork uploaded successfully.');
+        } catch (\Exception $th) {
+            Log::error($th->getMessage());
+            return back();
+        }
     }
 
     public function detail($id)
