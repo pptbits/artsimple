@@ -9,6 +9,12 @@
         width: 100%;
         height: auto;
     }
+    .modal-dialog-centered {
+        display: flex;
+        align-items: center;
+        min-height: calc(100% - 1rem);
+        justify-content: center;
+    }
 </style>
 
 @section('mainbody')
@@ -232,60 +238,56 @@
     {{-- zoom in/out --}}
     <script>
         const zoomableImage = document.getElementById("modal-c");
-        console.log(zoomableImage);
+        // console.log(zoomableImage);
         let zoom = 100;
         let currentX;
         let xOffset = 0;
-        const MIN_ZOOM = 50;
-        const MAX_ZOOM = 370;
-        const MIN_X_OFFSET = -670;
-        const MAX_X_OFFSET = 10;
+        // const MIN_ZOOM = 100;
+        // const MAX_ZOOM = 300;
+        // const MIN_X_OFFSET = -500;
+        // const MAX_X_OFFSET = 50;
 
         zoomableImage.addEventListener("mousedown", function(event) {
             if (event.which === 1) {
-                zoom += 10;
+                zoom += 30;
             } else if (event.which === 3) {
-                zoom -= 10;
+                zoom -= 30;
             }
-            zoom = Math.max(MIN_ZOOM, Math.min(zoom, MAX_ZOOM));
+            // zoom = Math.max(MIN_ZOOM, Math.min(zoom, MAX_ZOOM));
             zoomableImage.style.width = zoom + "%";
-            zoomableImage.style.transformOrigin = "center";
         });
 
         document.addEventListener("mousewheel", function(event) {
             event.preventDefault();
             if (event.deltaY < 0) {
-                zoom += 10;
+                zoom += 30;
             } else {
-                zoom -= 10;
+                zoom -= 30;
             }
-            zoom = Math.max(MIN_ZOOM, Math.min(zoom, MAX_ZOOM));
+            // zoom = Math.max(MIN_ZOOM, Math.min(zoom, MAX_ZOOM));
             zoomableImage.style.width = zoom + "%";
-            zoomableImage.style.transformOrigin = "center";
         }, {
             passive: false
         });
 
-        // document.addEventListener("keydown", function(event) {
-        //     switch (event.keyCode) {
-        //         case 37: // left arrow
-        //             xOffset -= 10;
-        //             xOffset = Math.max(MIN_X_OFFSET, Math.min(xOffset, MAX_X_OFFSET));
-        //             break;
-        //         case 39: // right arrow
-        //             xOffset += 10;
-        //             xOffset = Math.max(MIN_X_OFFSET, Math.min(xOffset, MAX_X_OFFSET));
-        //             break;
-        //     }
-        //     setTranslate(xOffset, zoomableImage);
-        // }, {
-        //     passive: false
-        // });
+        document.addEventListener("keydown", function(event) {
+            switch (event.keyCode) {
+                case 37: // left arrow
+                    xOffset -= 10;
+                    break;
+                case 39: // right arrow
+                    xOffset += 10;
+                    break;
+            }
+            setTranslate(xOffset, zoomableImage);
+        }, {
+            passive: false
+        });
 
         setTranslate(xOffset, zoomableImage);
 
         function setTranslate(xPos, el) {
-            el.style.transform = "translateX(" + -670 + "px)";
+            el.style.transform = "translateX(" + xPos + "px)";
         }
     </script>
 @endsection

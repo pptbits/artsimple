@@ -9,6 +9,13 @@
         width: 100%;
         height: auto;
     }
+
+    .modal-dialog-centered {
+        display: flex;
+        align-items: center;
+        min-height: calc(100% - 1rem);
+        justify-content: center;
+    }
 </style>
 
 @section('mainbody')
