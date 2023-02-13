@@ -238,6 +238,7 @@
     {{-- zoom in/out --}}
     <script>
         const zoomableImage = document.getElementById("modal-c");
+        const imgOpenModal = document.getElementById("blah");
         // console.log(zoomableImage);
         let zoom = 100;
         let currentX;
@@ -255,9 +256,16 @@
             }
             // zoom = Math.max(MIN_ZOOM, Math.min(zoom, MAX_ZOOM));
             zoomableImage.style.width = zoom + "%";
+            // console.log(zoom);
         });
 
-        document.addEventListener("mousewheel", function(event) {
+        imgOpenModal.addEventListener("click",function(event) {
+            event.preventDefault();
+            zoom = 100;
+            zoomableImage.style.width = "100%";
+        });
+
+        zoomableImage.addEventListener("mousewheel", function(event) {
             event.preventDefault();
             if (event.deltaY < 0) {
                 zoom += 30;
@@ -270,7 +278,7 @@
             passive: false
         });
 
-        document.addEventListener("keydown", function(event) {
+        zoomableImage.addEventListener("keydown", function(event) {
             switch (event.keyCode) {
                 case 37: // left arrow
                     xOffset -= 10;
