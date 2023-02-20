@@ -47,6 +47,7 @@ class RegisterController extends Controller
         }
 
         // get the image file
+        $image_string_front = '';
         if ($request->file('front_idcard')) {
             $image_front = $request->file('front_idcard');
             // generate a unique name for the image
@@ -58,6 +59,7 @@ class RegisterController extends Controller
             // return the view
         }
 
+        $image_string_self = '';
         if($request->file('selfie_idcard')){
             $image_seflie = $request->file('selfie_idcard');
             $image_string_self = uniqid() . '.' . $image_seflie->getClientOriginalExtension();
@@ -65,6 +67,7 @@ class RegisterController extends Controller
             Storage::put('public/images/idcard' . $image_string_self, (string) $img_s->encode());
         }
 
+        $image_string_bookbank = '';
         if($request->file('bookbank_img')){
             $image_bookbank = $request->file('bookbank_img');
             $image_string_bookbank = uniqid() . '.' . $image_bookbank->getClientOriginalExtension();
@@ -72,6 +75,7 @@ class RegisterController extends Controller
             Storage::put('public/images/bookbank' . $image_string_bookbank, (string) $img_b->encode());
         }
 
+        $image_string_univercard = '';
         if($request->file('university_card')){
             $image_univercard = $request->file('university_card');
             $image_string_univercard = uniqid() . '.' . $image_univercard->getClientOriginalExtension();
