@@ -22,7 +22,7 @@ class RegisterController extends Controller
             'email' => 'required|string|email|max:100|unique:users',
             'password' => 'required|string|min:8',
             'tel' => 'required|string|max:20',
-            'birth' => 'required|date',
+            // 'birth' => 'required|date',
             'idcard' => 'required|string|max:13',
             'front_idcard' => 'required|image|mimes:jpeg,png,jpg|max:10240',
             'selfie_idcard' => 'required|image|mimes:jpeg,png,jpg|max:10240',
