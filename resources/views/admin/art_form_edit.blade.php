@@ -30,12 +30,12 @@
     <div class="container">
         <div class="row">
             <div class="col-md-12">
-                <h4>&nbsp;<i class="fa fa-chevron-circle-right"></i>&nbsp;Edit Art Form</h4>
+                <h4>&nbsp;<i class="fa fa-chevron-circle-right"></i>&nbsp;Edit Category</h4>
                 <div class="card">
                     <div class="card-header card_head_modify" style=" background-color: black; ">
                         <div class="row mt-2">
                             <div class="col-md-10">
-                                <h5 class="pull-left pt-1" style="font-size: 18px; color:white;">Edit Art Form</h5>
+                                <h5 class="pull-left pt-1" style="font-size: 18px; color:white;">Edit Category</h5>
                             </div>
                             <div class="col-md-2">
                                 <a href="{{ url('art_form') }}">
@@ -55,7 +55,7 @@
                                 <div class="col-md-12 tmgin-top">
                                     <div class="form-group row">
                                         <label class="col-md-2 col-form-label text-right tmgin-left"
-                                            style="text-align: right;">Art Name : </label>
+                                            style="text-align: right;">Category Name : </label>
                                         <div class="col-md-8">
                                             <input type="text" name="art_name" id="art_name" required
                                                 value="{{ isset($art_form) ? $art_form->art_name : '' }}"

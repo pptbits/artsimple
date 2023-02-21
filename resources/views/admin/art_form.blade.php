@@ -238,13 +238,12 @@
     <div class="container">
         <div class="row">
             <div class="col-md-12">
-                <h4 class="tmgin-top">&nbsp;<i class="fa fa-chevron-circle-right"></i>&nbsp;Art Form</h4>
+                <h4 class="tmgin-top">&nbsp;<i class="fa fa-chevron-circle-right"></i>&nbsp;Category</h4>
                 <div class="card">
                     <div class="card-header card_head_modify" style=" background-color: black; ">
                         <div class="row mt-2">
                             <div class="col-md-10">
-                                <h5 class="pull-left pt-1" style="font-size: 18px;color:white;">Art
-                                    Form</h5>
+                                <h5 class="pull-left pt-1" style="font-size: 18px;color:white;">Category</h5>
                             </div>
                             <div class="col-md-2">
                                 <button onclick="modal()" class="btn btn-mini form-control"
@@ -261,7 +260,7 @@
                                     <thead class="thead_txt_center">
                                         <tr style="width:100%;">
                                             <th>#</th>
-                                            <th>Art Name</th>
+                                            <th>Category Name</th>
                                             <th>Action</th>
                                         </tr>
                                     </thead>
@@ -305,7 +304,7 @@
         <div class="modal-dialog" style="max-width:50%;" role="document">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">Add Art Form</h5>
+                    <h5 class="modal-title" id="exampleModalLabel">Add Category</h5>
                     {{-- <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button> --}}
@@ -318,7 +317,7 @@
                             <div class="row">
                                 <div class="col-md-12">
                                     <div class="form-group row">
-                                        <label class="col-md-2 col-form-label text-right" style="text-align: right;">Art Name : </label>
+                                        <label class="col-md-2 col-form-label text-right" style="text-align: right;">Category Name : </label>
                                         <div class="col-md-10">
                                             <input type="text" name="art_name" id="art_name" value=""
                                                 class="form-control" placeholder="Art Name" required>

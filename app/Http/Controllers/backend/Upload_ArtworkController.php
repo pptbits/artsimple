@@ -59,7 +59,7 @@ class Upload_ArtworkController extends Controller
                 'type_art' => 'required|string',
                 'select_art_form' => 'required|string',
                 'art_tech' => 'required|string',
-                'select_cer' => 'required|string',
+                // 'select_cer' => 'required|string',
                 'price' => 'required',
             ]);
 
@@ -70,10 +70,9 @@ class Upload_ArtworkController extends Controller
             // generate a unique name for the image
             $name = uniqid() . '.' . $image->getClientOriginalExtension();
             // resize the image
-            // $img = Image::make($image)->resize(3840, 2160);
+            // $img = Image::make($image);
             // save the image
-            dd($image->encode());
-            Storage::put('public/images/' . $name, (string) $image->encode());
+            Storage::putFileAs('public/images/', $image, $name);
             // return the view
 
             $ua->image = $name;
@@ -162,9 +161,9 @@ class Upload_ArtworkController extends Controller
             // generate a unique name for the image
             $name = uniqid() . '.' . $image->getClientOriginalExtension();
             // resize the image
-            $img = Image::make($image)->resize(3840, 2160);
+            // $img = Image::make($image)->resize(3840, 2160);
             // save the image
-            Storage::put('public/images/' . $name, (string) $img->encode());
+            Storage::putFileAs('public/images/', $image, $name);
             // return the view
             $ua->image = $name;
         }else{

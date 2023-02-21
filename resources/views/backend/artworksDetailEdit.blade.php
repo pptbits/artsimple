@@ -285,10 +285,10 @@
             event.preventDefault();
             switch (event.keyCode) {
                 case 37: // left arrow
-                    xOffset -= 10;
+                    xOffset -= 40;
                     break;
-                case 39: // right arrow
-                    xOffset += 10;
+                case 38: // right arrow
+                    xOffset += 40;
                     break;
             }
             setTranslate(xOffset, zoomableImage);

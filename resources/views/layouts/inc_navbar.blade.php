@@ -286,7 +286,7 @@
                     @endif
                 @elseif(Auth::user()->detail_user->type == 4)
                     @if (request()->route()->uri == 'home')
-                        <a class="list-group-item list-group-item-action p-3" href="{{ url('art_form') }}">Art Form</a>
+                        <a class="list-group-item list-group-item-action p-3" href="{{ url('art_form') }}">Category Art</a>
                         <a class="list-group-item list-group-item-black p-3" href="{{ route('logout.perform') }}"
                             onclick="event.preventDefault();
                      document.getElementById('logout-form').submit();"><img
@@ -297,8 +297,7 @@
                             @csrf
                         </form>
                     @elseif (request()->route()->uri == 'art_form')
-                        <a class="list-group-item list-group-item-action p-3" href="{{ url('art_form') }}">Art
-                            Form</a>
+                        <a class="list-group-item list-group-item-action p-3" href="{{ url('art_form') }}">Category Art</a>
                         <a class="list-group-item list-group-item-black p-3" href="{{ route('logout.perform') }}"
                             onclick="event.preventDefault();
                          document.getElementById('logout-form').submit();"><img
@@ -309,8 +308,7 @@
                             @csrf
                         </form>
                     @elseif (request()->route()->uri == 'art_form/edit/{id}')
-                        <a class="list-group-item list-group-item-action p-3" href="{{ url('art_form') }}">Art
-                            Form</a>
+                        <a class="list-group-item list-group-item-action p-3" href="{{ url('art_form') }}">Category Art</a>
                         <a class="list-group-item list-group-item-black p-3" href="{{ route('logout.perform') }}"
                             onclick="event.preventDefault();
                  document.getElementById('logout-form').submit();"><img
