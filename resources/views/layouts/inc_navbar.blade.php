@@ -284,7 +284,7 @@
                             @csrf
                         </form>
                     @endif
-                @elseif(Auth::user()->type == 'Admin')
+                @elseif(Auth::user()->detail_user->type == 4)
                     @if (request()->route()->uri == 'home')
                         <a class="list-group-item list-group-item-action p-3" href="{{ url('art_form') }}">Art Form</a>
                         <a class="list-group-item list-group-item-black p-3" href="{{ route('logout.perform') }}"

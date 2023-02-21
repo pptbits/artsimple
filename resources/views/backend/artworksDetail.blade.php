@@ -15,6 +15,7 @@
         align-items: center;
         min-height: calc(100% - 1rem);
         justify-content: center;
+        /* overflow-x: auto; */
     }
 </style>
 
@@ -200,10 +201,12 @@
             // console.log(zoom);
         });
 
-        imgOpenModal.addEventListener("click",function(event) {
+        imgOpenModal.addEventListener("click", function(event) {
             event.preventDefault();
             zoom = 100;
+            xOffset = 0;
             zoomableImage.style.width = "100%";
+            setTranslate(xOffset, zoomableImage);
         });
 
         zoomableImage.addEventListener("mousewheel", function(event) {
@@ -219,7 +222,8 @@
             passive: false
         });
 
-        zoomableImage.addEventListener("keydown", function(event) {
+        document.addEventListener("keydown", function(event) {
+            event.preventDefault();
             switch (event.keyCode) {
                 case 37: // left arrow
                     xOffset -= 10;

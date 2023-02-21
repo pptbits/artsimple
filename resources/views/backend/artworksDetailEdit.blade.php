@@ -9,6 +9,7 @@
         width: 100%;
         height: auto;
     }
+
     .modal-dialog-centered {
         display: flex;
         align-items: center;
@@ -18,8 +19,8 @@
 </style>
 
 @section('mainbody')
-    @if (Auth::user()->detail_user->type == "1")
-    @elseif(Auth::user()->detail_user->type == "2" || Auth::user()->detail_user->type == "3")
+    @if (Auth::user()->detail_user->type == '1')
+    @elseif(Auth::user()->detail_user->type == '2' || Auth::user()->detail_user->type == '3')
         @if (isset($up_art))
             <form action="{{ url('uploadArtwork/update') }}" method="POST" enctype="multipart/form-data" autocomplete="off">
                 @csrf
@@ -100,8 +101,8 @@
                                 <div class="col-12 col-sm-6 my-3">
                                     <label class="form-label">Price :</label>
                                     <input type="text" class="form-control"
-                                        value="{{ isset($up_art->price) ? $up_art->price : '' }}"
-                                        name="price" id="myinput" placeholder="Price and currency">
+                                        value="{{ isset($up_art->price) ? $up_art->price : '' }}" name="price"
+                                        id="myinput" placeholder="Price and currency">
                                 </div>
                                 <div class="col-12 col-sm-6 my-3">
                                     <label class="form-label">Frame Included :</label>
@@ -259,10 +260,12 @@
             // console.log(zoom);
         });
 
-        imgOpenModal.addEventListener("click",function(event) {
+        imgOpenModal.addEventListener("click", function(event) {
             event.preventDefault();
             zoom = 100;
+            xOffset = 0;
             zoomableImage.style.width = "100%";
+            setTranslate(xOffset, zoomableImage);
         });
 
         zoomableImage.addEventListener("mousewheel", function(event) {
@@ -278,7 +281,8 @@
             passive: false
         });
 
-        zoomableImage.addEventListener("keydown", function(event) {
+        document.addEventListener("keydown", function(event) {
+            event.preventDefault();
             switch (event.keyCode) {
                 case 37: // left arrow
                     xOffset -= 10;
