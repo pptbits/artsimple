@@ -17,12 +17,25 @@ class HomeSellerController extends Controller
         if ($search) {
             $art =  $art->where('name', 'like', "%{$search}%");
         }
+
+        // $filter =
         $art = $art->get();
+
 
 
         $category = art_form::all();
 
 
         return response()->json(['status' => 200, 'message' => 'Successfully Search', 'art' => ['data' => $art, 'category' => $category]], 200);
+    }
+
+    public function detail_art_seller(Request $req)
+    {
+        $up_art = Upload_Artworks::find($req->id);
+        $up_art->view = $up_art->view + 1;
+        $up_art->save();
+
+        $art_detail = Upload_Artworks::where('id', $req->id)->first();
+        return response()->json(['status' => 200, 'message' => 'Successfully Search', 'art' => $art], 200);
     }
 }
