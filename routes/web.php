@@ -55,6 +55,7 @@ Route::group(['middleware' => ['auth.web']], function () {
         Route::get('/manage_user/edit/{id}', [ManageUserController::class, 'edit'])->name('manage_user.edit');
         Route::post('/manage_user/update', [ManageUserController::class, 'update'])->name('manage_user.update');
         Route::get('/manage_user/delete/{id}', [ManageUserController::class, 'destroy'])->name('manage_user.destroy');
+        Route::post('/manage_user/approve', [ManageUserController::class, 'approve'])->name('manage_user.approve');
 
         Route::get('/package', [packageController::class, 'index'])->name('package');
         Route::post('/package/store', [packageController::class, 'store'])->name('package.store');

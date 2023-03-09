@@ -28,8 +28,10 @@ class Upload_ArtworkController extends Controller
     {
         $up_art = Upload_Artworks::all();
         $art_form = art_form::all();
-        $data = array('up_art' => $up_art,
-                      'art_form' => $art_form);
+        $data = array(
+            'up_art' => $up_art,
+            'art_form' => $art_form
+        );
         return view('backend.upload_artwork', $data);
     }
 
@@ -67,16 +69,21 @@ class Upload_ArtworkController extends Controller
 
             // get the image file
             $image = $request->file('image');
+            $image_g = $request->file('image');
             // generate a unique name for the image
             $name = uniqid() . '.' . $image->getClientOriginalExtension();
+            $name_g = uniqid() . '.' . $image_g->getClientOriginalExtension();
             // resize the image
-            // $img = Image::make($image);
+            $img = Image::make($image_g)->resize(400, 500);
+            Storage::putFileAs('public/images/', $img, $name_g);
             // save the image
             Storage::putFileAs('public/images/', $image, $name);
             // return the view
 
             $ua->image = $name;
+
             $ua->name = $request->input('name_art');
+            $ua->re_image = $name_g;
             $ua->description = $request->input('discript');
             $ua->type_art = $request->input('type_art');
             $ua->art_form = $request->input('select_art_form');
@@ -99,12 +106,12 @@ class Upload_ArtworkController extends Controller
     public function detail($id)
     {
         $user = User::select('users.*', 'detail_user.type')->join('detail_user', 'users.id', 'detail_user.id_user')
-        ->where('users.id', Auth::user()->id)->first();
-        if($user->type == '1'){
+            ->where('users.id', Auth::user()->id)->first();
+        if ($user->type == '1') {
             $up_art = Upload_Artworks::join('art_form', 'upload_artwork.art_form', 'art_form.id')
-            ->join('users', 'upload_artwork.user_id', 'users.id')
-            ->select('upload_artwork.*', 'art_form.art_name', 'users.name as user_name')
-            ->where('upload_artwork.id', $id)->first();
+                ->join('users', 'upload_artwork.user_id', 'users.id')
+                ->select('upload_artwork.*', 'art_form.art_name', 'users.name as user_name')
+                ->where('upload_artwork.id', $id)->first();
             // dd($up_art);
             $data = array('up_art' => $up_art);
         } elseif ($user->type == '2' || $user->type == '3') {
@@ -155,82 +162,86 @@ class Upload_ArtworkController extends Controller
     public function update(Request $request)
     {
         $ua = Upload_Artworks::find($request->input('id'));
-        if($request->hasFile('image')){
+        if ($request->hasFile('image')) {
             // get the image file
             $image = $request->file('image');
+            $image_g = $request->file('image');
             // generate a unique name for the image
             $name = uniqid() . '.' . $image->getClientOriginalExtension();
+            $name_g = uniqid() . '.' . $image_g->getClientOriginalExtension();
             // resize the image
-            // $img = Image::make($image)->resize(3840, 2160);
+            $img = Image::make($image_g)->resize(400, 500);
+            Storage::putFileAs('public/images/', $img, $name_g);
             // save the image
             Storage::putFileAs('public/images/', $image, $name);
             // return the view
             $ua->image = $name;
-        }else{
+            $ua->re_image = $name_g;
+        } else {
             $ua->image = $ua->image;
         }
         if ($request->input('name_art') != null) {
             $ua->name = $request->input('name_art');
-        }else{
+        } else {
             $ua->name = $ua->name;
         }
-    //    $ua->name = $request->input('name_art');
+        //    $ua->name = $request->input('name_art');
 
         if ($request->input('discript') != null) {
             $ua->description = $request->input('discript');
-        }else{
+        } else {
             $ua->description = $ua->description;
         }
-    //    $ua->description = $request->input('discript');
+        //    $ua->description = $request->input('discript');
 
         if ($request->input('type_art') != null) {
             $ua->type_art = $request->input('type_art');
-        }else{
+        } else {
             $ua->type_art = $ua->type_art;
         }
-    //    $ua->type_art = $request->input('type_art');
+        //    $ua->type_art = $request->input('type_art');
 
         if ($request->input('select_art_form') != null) {
             $ua->art_form = $request->input('select_art_form');
-        }else{
+        } else {
             $ua->art_form = $ua->art_form;
         }
-    //    $ua->art_form = $request->input('select_art_form');
+        //    $ua->art_form = $request->input('select_art_form');
 
         if ($request->input('art_tech') != null) {
             $ua->art_tech = $request->input('art_tech');
-        }else{
+        } else {
             $ua->art_tech = $ua->art_tech;
         }
-    //    $ua->art_tech = $request->input('art_tech');
+        //    $ua->art_tech = $request->input('art_tech');
 
         if ($request->input('select_cer') != null) {
             $ua->cer_auth = $request->input('select_cer');
-        }else{
+        } else {
             $ua->cer_auth = $ua->cer_auth;
         }
-    //    $ua->cer_auth = $request->input('select_cer');
+        //    $ua->cer_auth = $request->input('select_cer');
 
         if ($request->input('price') != null) {
             $ua->price = $request->input('price');
         } else {
             $ua->price = $ua->price;
         }
-    //    $ua->price = $request->input('price');
+        //    $ua->price = $request->input('price');
 
         if ($request->input('select_frame') != null) {
             $ua->frame_incl = $request->input('select_frame');
-        }else{
+        } else {
             $ua->frame_incl = $ua->frame_incl;
         }
-    //    $ua->frame_incl = $request->input('select_frame');
+        //    $ua->frame_incl = $request->input('select_frame');
 
         if ($request->input('select_ship') != null) {
             $ua->shipment_avail = $request->input('select_ship');
-        }else{
+        } else {
             $ua->shipment_avail = $ua->shipment_avail;
         }
-    //    $ua->shipment_avail = $request->input('select_ship');
+        //    $ua->shipment_avail = $request->input('select_ship');
 
         if ($request->input('art_dimen') != null) {
             $ua->art_dimen = $request->input('art_dimen');
@@ -240,12 +251,12 @@ class Upload_ArtworkController extends Controller
 
         if ($request->input('hide_show') != null) {
             $ua->show_hide = $request->input('hide_show');
-        }else{
+        } else {
             $ua->show_hide = $ua->show_hide;
         }
-    //    $ua->show_hide = $request->input('hide_show');
-       $ua->user_id = Auth::user()->id;
-       $ua->save();
+        //    $ua->show_hide = $request->input('hide_show');
+        $ua->user_id = Auth::user()->id;
+        $ua->save();
         // dd($ua);
         return back()->with('success', 'Artwork updated successfully.');
     }

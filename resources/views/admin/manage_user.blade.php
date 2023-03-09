@@ -293,9 +293,12 @@
                                                     </td>
                                                     <td>
                                                         @if (isset($value->approve) && $value->approve == 'Y')
-                                                            <p>อนุมัติ</p>
+                                                            <p>Approved</p>
                                                         @else
-                                                            <p>รออนุมัติ</p>
+                                                            <button id="nap" class="btn-danger btn btn-sm"
+                                                                style="border-radius: 5%"
+                                                                onclick="approve({{ $value->id }})">Not
+                                                                Approve</button>
                                                         @endif
                                                     </td>
                                                     <td style="text-align: center !important;">
@@ -399,6 +402,49 @@
             } else {
                 x.innerHTML = "Hide artwork";
             }
+        }
+    </script>
+
+    <script>
+        approve = (id) => {
+            Swal.fire({
+                title: 'Do you want to Aprrove?',
+                showDenyButton: false,
+                showCancelButton: true,
+                confirmButtonText: 'Approve',
+                // denyButtonText: `Don't save`,
+            }).then((result) => {
+                /* Read more about isConfirmed, isDenied below */
+                // console.log(result);
+
+                if (result.value) {
+                    // Swal.fire('Saved!', '', 'success')
+                    fetch("{{ url('manage_user/approve') }}", {
+                            headers: {
+                                // 'Accept': 'application/json, application/xml, text/plain, text/html, *.*',
+                                'Content-Type': 'application/json, multipart/form-data',
+                                // "X-CSRF-Token": "{{ csrf_token() }}",
+                            },
+                            method: "post",
+                            credentials: "same-origin",
+                            body: JSON.stringify({
+                                "_token": "{{ csrf_token() }}",
+                                "id": id,
+                            }),
+                        })
+                        .then((response) => response.json())
+                        .then((data) => {
+                            console.log("Success:", data);
+                            Swal.fire('Saved!', '', 'success')
+                                .then(() => {
+                                    window.location.reload();
+                                })
+                        })
+                        .catch((error) => {
+                            console.error("Error:", error);
+                        });
+                }
+            })
         }
     </script>
 @endsection

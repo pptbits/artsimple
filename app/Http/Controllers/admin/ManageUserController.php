@@ -57,4 +57,12 @@ class ManageUserController extends Controller
         $๊user->delete();
         return redirect()->back();
     }
+
+    public function approve(Request $request)
+    {
+        $๊user = User::find($request->id);
+        $๊user->approve = "Y";
+        $๊user->save();
+        return response()->json(['status' => 200]);
+    }
 }
