@@ -236,24 +236,28 @@
     .offset-4 {
         margin-left: 0% !important;
     }
+
+    .mb {
+        margin-bottom: 10px;
+    }
 </style>
 
 @section('mainbody')
     <div class="container">
         <div class="row">
             <div class="col-md-12">
-                <h4 class="tmgin-top">&nbsp;<i class="fa fa-chevron-circle-right"></i>&nbsp;Manage User</h4>
+                <h4 class="tmgin-top">&nbsp;<i class="fa fa-chevron-circle-right"></i>&nbsp;Package</h4>
                 <div class="card">
                     <div class="card-header card_head_modify" style=" background-color: black; ">
                         <div class="row mt-2">
                             <div class="col-md-10">
-                                <h5 class="pull-left pt-1" style="font-size: 18px;color:white;">Manage User</h5>
+                                <h5 class="pull-left pt-1" style="font-size: 18px;color:white;">Package</h5>
                             </div>
-                            {{-- <div class="col-md-2">
+                            <div class="col-md-2">
                                 <button onclick="modal()" class="btn btn-mini form-control"
                                     style="color: black; background-color: white !important;"> <i class="fa fa-plus"
                                         aria-hidden="true"></i> Add</button>
-                            </div> --}}
+                            </div>
                         </div>
                     </div>
                     <div class="card-block tmgin-top tmgin-left tmgin-right">
@@ -264,45 +268,34 @@
                                     <thead class="thead_txt_center">
                                         <tr style="width:100%;">
                                             <th>#</th>
-                                            <th>User Name</th>
-                                            <th>Name</th>
-                                            <th>User Type</th>
-                                            <th>Status</th>
+                                            <th>Package Name</th>
+                                            <th>Price</th>
+                                            <th>Posting</th>
+                                            <th>Date</th>
                                             <th>Action</th>
                                         </tr>
                                     </thead>
                                     <tbody class="tbody_txt_center" style="font-size: 14px;">
-                                        @if (isset($user))
-                                            @foreach ($user as $item => $value)
+                                        @if (isset($package))
+                                            @foreach ($package as $item => $value)
                                                 <tr>
                                                     <td>{{ $item + 1 }}</td>
                                                     <td style="text-align: left !important;">
-                                                        <p> {{ isset($value) ? $value->email : '' }}</p>
-                                                    </td>
-                                                    <td style="text-align: left !important;">
                                                         <p> {{ isset($value) ? $value->name : '' }}</p>
                                                     </td>
-                                                    <td style="text-align: left !important;">
-                                                        @if ($value->type == 1)
-                                                            <p>Buyer</p>
-                                                        @elseif($value->type == 2 || $value->type == 3)
-                                                            <p>Seller</p>
-                                                        @elseif($value->type == 4)
-                                                            <p>Admin</p>
-                                                        @endif
+                                                    <td>
+                                                        <p> {{ $value->price }} THB</p>
                                                     </td>
                                                     <td>
-                                                        @if (isset($value->approve) && $value->approve == 'Y')
-                                                            <p>อนุมัติ</p>
-                                                        @else
-                                                            <p>รออนุมัติ</p>
-                                                        @endif
+                                                        <p> {{  $value->posting }} Posting</p>
                                                     </td>
-                                                    <td style="text-align: center !important;">
+                                                    <td>
+                                                        <p> {{ $value->day }} days</p>
+                                                    <td>
                                                         <div class="row">
                                                             <div class="offset-4 col-1">
                                                                 {{-- <button onclick="edit_modal({{ $value->id }})" class="btn btn-info btn-round btn-mini">แก้ไข</button> --}}
-                                                                <a href="{{ url('manage_user/edit/' . $value->id) }}">
+                                                                <a href="{{ url('package/edit/' . $value->id) }}">
                                                                     <button class="btn btn-info btn-round btn-mini"
                                                                         style="border-radius: 50px; color: white; font-size: 10px;">แก้ไข</button>
                                                                 </a>
@@ -324,7 +317,81 @@
             </div>
         </div>
     </div>
+    {{-- Modal --}}
+    <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+        aria-hidden="true">
+        <div class="modal-dialog" style="max-width:50%;" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Add Package</h5>
+                    {{-- <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button> --}}
+                </div>
+                <div class="modal-body">
+                    <form action="{{ url('package/store') }}" method="POST" id="gen_form" enctype="multipart/form-data"
+                        autocomplete="off">
+                        @csrf
+                        <div class="card-block">
+                            <div class="row">
+                                <div class="col-md-12 mb">
+                                    <div class="form-group row">
+                                        <label class="col-md-2 col-form-label text-right" style="text-align: right;">Name :
+                                        </label>
+                                        <div class="col-md-10">
+                                            <input type="text" name="pack_name" id="pack_name" value=""
+                                                class="form-control" placeholder="Package Name" required>
+                                        </div>
+                                    </div>
+                                </div>
 
+                                <div class="col-md-12 mb">
+                                    <div class="form-group row">
+                                        <label class="col-md-2 col-form-label text-right" style="text-align: right;">Date :
+                                        </label>
+                                        <div class="col-md-10">
+                                            <input type="number" name="day" id="day" value=""
+                                                class="form-control" placeholder="Day" required>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="col-md-12 mb">
+                                    <div class="form-group row">
+                                        <label class="col-md-2 col-form-label text-right" style="text-align: right;">Posting
+                                            : </label>
+                                        <div class="col-md-10">
+                                            <input type="number" name="posting" id="posting" value=""
+                                                class="form-control" placeholder="Posting" required>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="col-md-12 mb">
+                                    <div class="form-group row">
+                                        <label class="col-md-2 col-form-label text-right" style="text-align: right;">Price :
+                                        </label>
+                                        <div class="col-md-10">
+                                            <input type="number" name="price" id="price" value=""
+                                                class="form-control" placeholder="Price" required>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <input type="hidden" name="id" id="id">
+                            </div>
+                            <div class="row">
+                                <div class="col-md-3 tmgin-top" style="margin: auto; text-align: center">
+                                    <button type="submit" id="submit"
+                                        class="form-control btn btn-primary">{{ isset($package) ? 'Update' : 'Save' }}</button>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
 @endsection
 
 @section('js')
@@ -347,15 +414,27 @@
             @endif
         });
 
-        function edit_modal(id) {
-            $('#gen_form').attr('action', "{!! url('manage_user/update') !!}");
+        function modal() {
+            $('#gen_form').attr('action', "{!! url('package/store') !!}");
             $('#name').val('');
+            $('#submit').text('Save');
+            $('#exampleModal').modal('toggle');
+        }
+
+        function edit_modal(id) {
+            $('#gen_form').attr('action', "{!! url('package/update') !!}");
+            $('#day').val('');
+            $('#posting').val('');
+            $('#price').val('');
             $('#submit').text('Update');
             $.ajax({
                 type: "GET",
-                url: "{!! url('manage_user/edit/" + id + "') !!}",
+                url: "{!! url('package/edit/" + id + "') !!}",
                 success: function(data) {
                     $('#name').val(data['name']);
+                    $('#day').val(data['day']);
+                    $('#posting').val(data['posting']);
+                    $('#price').val(data['price']);
                     $('#id').val(data['id']);
                 }
             });
@@ -375,7 +454,7 @@
                 if (result.value) {
                     $.ajax({
                         type: "GET",
-                        url: "{!! url('manage_user/delete/" + id + "') !!}",
+                        url: "{!! url('package/delete/" + id + "') !!}",
                         success: function(data) {
                             swal({
                                 title: "Sucess!",

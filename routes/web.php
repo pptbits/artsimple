@@ -6,6 +6,7 @@ use App\Http\Controllers\HomeController;
 use App\Http\Controllers\backend\Upload_ArtworkController;
 use App\Http\Controllers\admin\Art_formController;
 use App\Http\Controllers\admin\ManageUserController;
+use App\Http\Controllers\admin\packageController;
 
 /*
 |--------------------------------------------------------------------------
@@ -54,6 +55,13 @@ Route::group(['middleware' => ['auth.web']], function () {
         Route::get('/manage_user/edit/{id}', [ManageUserController::class, 'edit'])->name('manage_user.edit');
         Route::post('/manage_user/update', [ManageUserController::class, 'update'])->name('manage_user.update');
         Route::get('/manage_user/delete/{id}', [ManageUserController::class, 'destroy'])->name('manage_user.destroy');
+
+        Route::get('/package', [packageController::class, 'index'])->name('package');
+        Route::post('/package/store', [packageController::class, 'store'])->name('package.store');
+        Route::get('/package/edit/{id}', [packageController::class, 'edit'])->name('package.edit');
+        Route::post('/package/update', [packageController::class, 'update'])->name('package.update');
+        Route::get('/package/delete/{id}', [packageController::class, 'destroy'])->name('package.destroy');
+
     }
     );
     Route::get('/home', [HomeController::class, 'index'])->name('home');

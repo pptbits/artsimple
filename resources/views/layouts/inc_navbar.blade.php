@@ -288,6 +288,8 @@
                     @if (request()->route()->uri == 'home')
                         <a class="list-group-item list-group-item-action p-3" href="{{ url('art_form') }}">Category
                             Art</a>
+                        <a class="list-group-item list-group-item-black p-3" href="{{ url('package') }}">Package
+                        </a>
                         <a class="list-group-item list-group-item-black p-3" href="{{ url('manage_user') }}">Manage
                             User</a>
                         <a class="list-group-item list-group-item-black p-3" href="{{ route('logout.perform') }}"
@@ -302,6 +304,8 @@
                     @elseif (request()->route()->uri == 'art_form')
                         <a class="list-group-item list-group-item-action p-3" href="{{ url('art_form') }}">Category
                             Art</a>
+                        <a class="list-group-item list-group-item-black p-3" href="{{ url('package') }}">Package
+                        </a>
                         <a class="list-group-item list-group-item-black p-3" href="{{ url('manage_user') }}">Manage
                             User</a>
                         <a class="list-group-item list-group-item-black p-3" href="{{ route('logout.perform') }}"
@@ -316,6 +320,40 @@
                     @elseif (request()->route()->uri == 'art_form/edit/{id}')
                         <a class="list-group-item list-group-item-action p-3" href="{{ url('art_form') }}">Category
                             Art</a>
+                        <a class="list-group-item list-group-item-black p-3" href="{{ url('package') }}">Package
+                        </a>
+                        <a class="list-group-item list-group-item-black p-3" href="{{ url('manage_user') }}">Manage
+                            User</a>
+                        <a class="list-group-item list-group-item-black p-3" href="{{ route('logout.perform') }}"
+                            onclick="event.preventDefault();
+                 document.getElementById('logout-form').submit();"><img
+                                src="{{ asset('images/logout.png') }}" class="icon-sidebar">
+                            Log out</a>
+                        <form id="logout-form" action="{{ route('logout.perform') }}" method="POST"
+                            class="d-none">
+                            @csrf
+                        </form>
+                    @elseif(request()->route()->uri == 'package')
+                        <a class="list-group-item list-group-item-black p-3" href="{{ url('art_form') }}">Category
+                            Art</a>
+                        <a class="list-group-item list-group-item-action p-3" href="{{ url('package') }}">Package
+                        </a>
+                        <a class="list-group-item list-group-item-black p-3" href="{{ url('manage_user') }}">Manage
+                            User</a>
+                        <a class="list-group-item list-group-item-black p-3" href="{{ route('logout.perform') }}"
+                            onclick="event.preventDefault();
+             document.getElementById('logout-form').submit();"><img
+                                src="{{ asset('images/logout.png') }}" class="icon-sidebar">
+                            Log out</a>
+                        <form id="logout-form" action="{{ route('logout.perform') }}" method="POST"
+                            class="d-none">
+                            @csrf
+                        </form>
+                    @elseif (request()->route()->uri == 'package/edit/{id}')
+                        <a class="list-group-item list-group-item-black p-3" href="{{ url('art_form') }}">Category
+                            Art</a>
+                        <a class="list-group-item list-group-item-action p-3" href="{{ url('package') }}">Package
+                        </a>
                         <a class="list-group-item list-group-item-black p-3" href="{{ url('manage_user') }}">Manage
                             User</a>
                         <a class="list-group-item list-group-item-black p-3" href="{{ route('logout.perform') }}"
@@ -330,11 +368,29 @@
                     @elseif(request()->route()->uri == 'manage_user')
                         <a class="list-group-item list-group-item-black p-3" href="{{ url('art_form') }}">Category
                             Art</a>
+                        <a class="list-group-item list-group-item-black p-3" href="{{ url('package') }}">Package
+                        </a>
                         <a class="list-group-item list-group-item-action p-3" href="{{ url('manage_user') }}">Manage
                             User</a>
                         <a class="list-group-item list-group-item-black p-3" href="{{ route('logout.perform') }}"
                             onclick="event.preventDefault();
                  document.getElementById('logout-form').submit();"><img
+                                src="{{ asset('images/logout.png') }}" class="icon-sidebar">
+                            Log out</a>
+                        <form id="logout-form" action="{{ route('logout.perform') }}" method="POST"
+                            class="d-none">
+                            @csrf
+                        </form>
+                    @elseif (request()->route()->uri == 'manage_user/edit/{id}')
+                        <a class="list-group-item list-group-item-black p-3" href="{{ url('art_form') }}">Category
+                            Art</a>
+                        <a class="list-group-item list-group-item-black p-3" href="{{ url('package') }}">Package
+                        </a>
+                        <a class="list-group-item list-group-item-action p-3" href="{{ url('manage_user') }}">Manage
+                            User</a>
+                        <a class="list-group-item list-group-item-black p-3" href="{{ route('logout.perform') }}"
+                            onclick="event.preventDefault();
+             document.getElementById('logout-form').submit();"><img
                                 src="{{ asset('images/logout.png') }}" class="icon-sidebar">
                             Log out</a>
                         <form id="logout-form" action="{{ route('logout.perform') }}" method="POST"

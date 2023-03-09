@@ -23,7 +23,7 @@ class ManageUserController extends Controller
     public function index()
     {
         $user = User::join('detail_user', 'users.id', 'detail_user.id_user')->select('users.*', 'detail_user.id as detail_user_id', 'detail_user.type')->get();
-        dd($user);
+        // dd($user);
         $data = array('user' => $user);
         return view('admin.manage_user', $data);
     }
@@ -36,23 +36,25 @@ class ManageUserController extends Controller
 
     public function edit($id)
     {
-        $art_form = art_form::find($id);
-        $data = array('art_form' => $art_form);
-        return view('admin.art_form_edit', $data);
+        $user = User::join('detail_user', 'users.id', 'detail_user.id_user')
+        ->select('users.*', 'detail_user.id as detail_user_id', 'detail_user.type')->where('users.id', $id)->first();
+        // dd($user);
+        $data = array('user' => $user);
+        return view('admin.manage_user_edit', $data);
     }
 
     public function update(Request $request)
     {
-        $af = art_form::find($request->id);
-        $af->art_name = $request->art_name;
-        $af->save();
+        $๊user = User::find($request->id);
+        $๊user->approve = $request->approve;
+        $๊user->save();
         return redirect()->back();
     }
 
     public function destroy($id)
     {
-        $af = art_form::find($id);
-        $af->delete();
+        $๊user = User::find($id);
+        $๊user->delete();
         return redirect()->back();
     }
 }
