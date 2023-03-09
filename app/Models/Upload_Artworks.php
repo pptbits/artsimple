@@ -11,6 +11,7 @@ class Upload_Artworks extends Model
 
     protected $table = 'upload_artwork';
     protected $fillable = [ 'image',
+                            're_image',
                             'name',
                             'description',
                             'type_art',
